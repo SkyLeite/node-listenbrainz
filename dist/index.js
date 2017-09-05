@@ -151,15 +151,4 @@ var Client = /** @class */ (function () {
     };
     return Client;
 }());
-var client = new Client('61c463cd-ee23-47fc-a7ee-bf2ff339828b');
-client.submitListen({
-    "listen_type": "single",
-    "payload": [{
-            "listened_at": 1504630600,
-            "track_metadata": {
-                "artist_name": "Lady Gaga",
-                "track_name": "ARTPOP",
-            }
-        }]
-});
-// client.getUserListens('kxze', {}); 
+exports.Client = Client;

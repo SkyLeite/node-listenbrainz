@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { Listen, ListenPayload, Track, ClientError, Response, SubmitListenPayload } from "./types";
 
-class Client {
+export class Client {
     BaseURL: string;
     Authorization?: string;
 
@@ -88,5 +88,3 @@ class Client {
         }
     }
 }
-
-export default Client;
