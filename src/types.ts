@@ -1,12 +1,12 @@
 export interface Response {
-    RateLimit: {
-        Limit: number,
-        Remaining: number,
-        Reset: number,
-        ResetIn: number,
+    rate_limit: {
+        limit: number,
+        remaining: number,
+        reset: number,
+        reset_in: number,
     };
 
-    Payload?: Object;
+    data?: Object;
 }
 
 export interface ListenPayload {

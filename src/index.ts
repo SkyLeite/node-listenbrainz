@@ -42,13 +42,13 @@ export class Client {
             }
 
             let response: Response = {
-                RateLimit: {
-                    Limit: parseInt(r.headers.get('x-ratelimit-limit')),
-                    Remaining: parseInt(r.headers.get('x-ratelimit-remaining')),
-                    Reset: parseInt(r.headers.get('x-ratelimit-reset')),
-                    ResetIn: parseInt(r.headers.get('x-ratelimit-reset-in')),
+                rate_limit: {
+                    limit: parseInt(r.headers.get('x-ratelimit-limit')),
+                    remaining: parseInt(r.headers.get('x-ratelimit-remaining')),
+                    reset: parseInt(r.headers.get('x-ratelimit-reset')),
+                    reset_in: parseInt(r.headers.get('x-ratelimit-reset-in')),
                 },
-                Payload: payload
+                data: payload
             }
 
             return response;
@@ -62,13 +62,13 @@ export class Client {
         let r = await fetch(this.BaseURL + `1/latest-import?user_name=${user}`);
         if (r.status === 200) {
             let response: Response = {
-                RateLimit: {
-                    Limit: parseInt(r.headers.get('x-ratelimit-limit')),
-                    Remaining: parseInt(r.headers.get('x-ratelimit-remaining')),
-                    Reset: parseInt(r.headers.get('x-ratelimit-reset')),
-                    ResetIn: parseInt(r.headers.get('x-ratelimit-reset-in')),
+                rate_limit: {
+                    limit: parseInt(r.headers.get('x-ratelimit-limit')),
+                    remaining: parseInt(r.headers.get('x-ratelimit-remaining')),
+                    reset: parseInt(r.headers.get('x-ratelimit-reset')),
+                    reset_in: parseInt(r.headers.get('x-ratelimit-reset-in')),
                 },
-                Payload: await r.json()
+                data: await r.json()
             }
             return response;
         }
