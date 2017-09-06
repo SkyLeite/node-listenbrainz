@@ -61,7 +61,16 @@ export class Client {
     async getLatestImport(user: string, options?: object) {
         let r = await fetch(this.BaseURL + `1/latest-import?user_name=${user}`);
         if (r.status === 200) {
-            return await r.json();
+            let response: Response = {
+                RateLimit: {
+                    Limit: parseInt(r.headers.get('x-ratelimit-limit')),
+                    Remaining: parseInt(r.headers.get('x-ratelimit-remaining')),
+                    Reset: parseInt(r.headers.get('x-ratelimit-reset')),
+                    ResetIn: parseInt(r.headers.get('x-ratelimit-reset-in')),
+                },
+                Payload: await r.json()
+            }
+            return response;
         }
     }
 
@@ -73,7 +82,7 @@ export class Client {
                 headers: { Authorization: 'Token ' + this.Authorization }
             });
             if (r.status === 200) {
-                return {status: 200};
+                return { status: 200 };
             }
             else if (r.status === 400) {
                 throw JSON.stringify(await r.json());

@@ -38,5 +38,6 @@ export interface Listen {
 }
 
 export interface ClientError {
-
+    status: number;
+    message: string;
 }
