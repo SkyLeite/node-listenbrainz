@@ -67,7 +67,6 @@ export class Client {
 
     async submitListen(data: SubmitListenPayload) {
         if (this.Authorization) {
-            console.log(JSON.stringify(data))
             let r = await fetch(this.BaseURL + `1/submit-listens`, {
                 method: 'POST',
                 body: JSON.stringify(data),
