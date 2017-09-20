@@ -1,6 +1,16 @@
 import fetch from 'node-fetch';
 import { Listen, ListenPayload, Track, ClientError, Response, SubmitListenPayload } from "./types";
 
+class ListenbrainzException {
+    status: number;
+    message: string;
+
+    constructor(status: number, message: string) {
+        this.status = status;
+        this.message = message;
+    }
+}
+
 export class Client {
     BaseURL: string;
     Authorization?: string;
@@ -54,7 +64,7 @@ export class Client {
             return response;
         }
         else if (r.status === 429) {
-            throw 'hello';
+            throw new ListenbrainzException(429, "Too Many Requests. You are being rate limited.");
         }
     }
 
@@ -72,6 +82,9 @@ export class Client {
             }
             return response;
         }
+        else if (r.status === 429) {
+            throw new ListenbrainzException(429, "Too Many Requests. You are being rate limited.");
+        }
     }
 
     async submitListen(data: SubmitListenPayload) {
@@ -85,10 +98,13 @@ export class Client {
                 return { status: 200 };
             }
             else if (r.status === 400) {
-                throw JSON.stringify(await r.json());
+                throw new ListenbrainzException(400, "Bad Request");
             }
             else if (r.status === 401) {
-                throw JSON.stringify(await r.json());
+                throw new ListenbrainzException(401, "Unauthorized");
+            }
+            else if (r.status === 429) {
+                throw new ListenbrainzException(429, "Too Many Requests. You are being rate limited.");
             }
             else {
                 throw JSON.stringify(await r.json());
